@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>ELA Durchsage</title>
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>ELA Durchsage</h1>
+        <form id="form" onsubmit="return onFormSubmit()">
+            <div id="form-container">
+                <textarea name="text" placeholder="Text der Durchsage"></textarea>
+                <div id="form-actions">
+                    <div>
+                        <input type="checkbox" name="no_chime" value="true"/> Kein Gong
+                    </div>
+                    <div>
+                        <input type="checkbox" name="repeat" value="true" checked/> Wiederholen
+                    </div>
+                    <div>
+                        <input type="file" id="upload-file" accept=".wav,.ogg,.mp3">
+                        <button type="button" onclick="document.getElementById('upload-file').click()">Datei</button>
+                    </div>
+                    <div id="mic" style="display: none;">
+                        <button class="record-start" type="button" onclick="onRecord()">Mikrofon</button>
+                        <button class="record-end" type="button" onclick="onRecordEnd(false)">Abbrechen</button>
+                        <button class="record-end" type="button" onclick="onRecordEnd(true)">Abspielen</button>
+                    </div>
+                    <div>
+                        <button type="submit">Text ansagen</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <script src="script.js" type="text/javascript"></script>
+    </body>
+</html>

@@ -1,0 +1,6 @@
+piper-tts
+fastapi[standard]
+pydub
+simpleaudio
+audioop-lts
+python-multipart

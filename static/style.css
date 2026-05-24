@@ -1,0 +1,35 @@
+body {
+    font-family: sans-serif;
+}
+
+#form-container {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+#form-container textarea {
+    border: none;
+    margin: 5px;
+}
+
+#form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: stretch;
+    gap: 10px;
+}
+
+
+#mic.recording .record-start {
+    display: none;
+}
+
+#mic:not(.recording) .record-end {
+    display: none;
+}
+
+#form-container #upload-file {
+    display: none;
+}
