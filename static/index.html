@@ -1,36 +1,76 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>ELA Durchsage</title>
-        <link href="style.css" rel="stylesheet">
-    </head>
-    <body>
-        <h1>ELA Durchsage</h1>
-        <form id="form" onsubmit="return onFormSubmit()">
-            <div id="form-container">
-                <textarea name="text" placeholder="Text der Durchsage"></textarea>
-                <div id="form-actions">
-                    <div>
-                        <input type="checkbox" name="no_chime" value="true"/> Kein Gong
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ELA Durchsage</title>
+    <link href="assets/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a href="/"
+                    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                    <span class="fs-4"><i class="bi bi-megaphone-fill"></i> ELA Durchsage</span>
+                </a>
+            </header>
+            <div class="card bg-light">
+                <form id="form" onsubmit="return onFormSubmit()">
+                    <div id="form-container" class="m-3">
+                        <textarea name="text" placeholder="Text der Durchsage" class="form-control"></textarea>
+                        <div id="form-actions" class="hstack">
+                            <div class="p-2">
+                                <div class="form-check form-switch d-none d-md-block">
+                                    <input id="no_chime" type="checkbox" class="form-check-input" name="no_chime" value="true" />
+                                    <label for="no_chime" class="form-check-label">Kein Gong</label>
+                                </div>
+                                <button type="button" class="btn icon-check d-md-none" data-for="no_chime">
+                                    <i class="icon-check-off bi bi-bell-fill"></i>
+                                    <i class="icon-check-on bi bi-bell-slash-fill"></i>
+                                </button>
+                            </div>
+                            <div class="p-2">
+                                <div class="form-check form-switch d-none d-md-block">
+                                    <input id="repeat" type="checkbox" class="form-check-input" name="repeat" value="true" checked />
+                                    <label for="repeat" class="form-check-label">Wiederholen</label>
+                                </div>
+                                <button type="button" class="btn icon-check d-md-none" data-for="repeat">
+                                    <i class="icon-check-off bi bi-1-circle"></i>
+                                    <i class="icon-check-on bi bi-2-circle"></i>
+                                </button>
+                            </div>
+                            <div class="p-2 ms-auto">
+                                <input type="file" id="upload-file" accept=".wav,.ogg,.mp3">
+                                <button type="button" class="btn play-button" title="Datei abspielen"
+                                    onclick="document.getElementById('upload-file').click()">
+                                    <i class="bi bi-paperclip"></i>
+                                </button>
+                            </div>
+                            <div id="mic" style="display: none;" class="p-2">
+                                <button class="record-start btn" type="button" onclick="onRecord()" title="Vom Mikrofon aufnehmen und abspielen"><i class="bi bi-mic"></i></button>
+                                <button class="record-end btn" type="button" onclick="onRecordEnd(false)" title="Aufnahme abbrechen und verwerfen"><i class="bi bi-stop-fill text-danger"></i></button>
+                                <button class="record-end btn" type="button" onclick="onRecordEnd(true)" title="Aufnahme abspielen"><i class="bi bi-play-fill text-success"></i></button>
+                            </div>
+                            <div class="p-2">
+                                <button type="submit" class="btn play-button" title="Text vorlesen"><i class="bi bi-send text-primary"></i></button>
+                            </div>
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Abspielen...</span>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <input type="checkbox" name="repeat" value="true" checked/> Wiederholen
-                    </div>
-                    <div>
-                        <input type="file" id="upload-file" accept=".wav,.ogg,.mp3">
-                        <button type="button" onclick="document.getElementById('upload-file').click()">Datei</button>
-                    </div>
-                    <div id="mic" style="display: none;">
-                        <button class="record-start" type="button" onclick="onRecord()">Mikrofon</button>
-                        <button class="record-end" type="button" onclick="onRecordEnd(false)">Abbrechen</button>
-                        <button class="record-end" type="button" onclick="onRecordEnd(true)">Abspielen</button>
-                    </div>
-                    <div>
-                        <button type="submit">Text ansagen</button>
-                    </div>
-                </div>
+                </form>
             </div>
-        </form>
-        <script src="script.js" type="text/javascript"></script>
-    </body>
+        </div>
+    </main>
+
+    <script src="assets/bootstrap.min.js"></script>
+    <script src="script.js" type="text/javascript"></script>
+</body>
+
 </html>

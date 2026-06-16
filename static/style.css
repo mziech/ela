@@ -1,35 +1,35 @@
-body {
-    font-family: sans-serif;
-}
-
-#form-container {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-#form-container textarea {
-    border: none;
-    margin: 5px;
-}
-
-#form-actions {
-    display: flex;
-    justify-content: flex-end;
-    align-items: stretch;
-    gap: 10px;
-}
-
-
-#mic.recording .record-start {
+form.recording .record-start {
     display: none;
 }
 
-#mic:not(.recording) .record-end {
+form.playing .record-start, form.playing .play-button, form.recording .play-button {
+    display: none !important;
+}
+
+form:not(.recording) .record-end {
     display: none;
 }
 
 #form-container #upload-file {
+    display: none;
+}
+
+.icon-check .icon-check-on {
+    display: none;
+}
+
+.icon-check .icon-check-off {
+    display: inline-block;
+}
+
+.icon-check.icon-checked .icon-check-on {
+    display: inline-block;
+}
+
+.icon-check.icon-checked .icon-check-off {
+    display: none;
+}
+
+form:not(.playing) .spinner-border {
     display: none;
 }

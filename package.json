@@ -1,0 +1,25 @@
+{
+  "name": "ela",
+  "version": "1.0.0",
+  "description": "Frontend for the ELA application",
+  "private": true,
+  "homepage": "https://github.com/mziech/ela#readme",
+  "bugs": {
+    "url": "https://github.com/mziech/ela/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mziech/ela.git"
+  },
+  "license": "GPL-3.0",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "mkdir -p static/assets && cp -r node_modules/bootstrap/dist/js/bootstrap.min.js node_modules/bootstrap/dist/css/bootstrap.min.css node_modules/bootstrap-icons/font/bootstrap-icons.min.css node_modules/bootstrap-icons/font/fonts static/assets"
+  },
+  "devDependencies": {
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1"
+  }
+}

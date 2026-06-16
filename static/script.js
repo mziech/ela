@@ -8,6 +8,20 @@ if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
   console.log("getUserMedia not supported on your browser!");
 }
 
+document.querySelectorAll(".icon-check").forEach($el => {
+    const $delegate = document.getElementById($el.getAttribute("data-for"));
+    const updateCheckIcon = () => {
+        if ($delegate.checked) {
+            $el.classList.add("icon-checked");
+        } else {
+            $el.classList.remove("icon-checked");
+        }
+    };
+    $el.addEventListener("click", () => $delegate.click());
+    $delegate.addEventListener("change", updateCheckIcon);
+    updateCheckIcon();
+});
+
 function getFormValues() {
     return {
         text: $form.querySelector("[name=text]").value,
@@ -18,6 +32,8 @@ function getFormValues() {
 
 function onFormSubmit() {
     var body = getFormValues();
+    $form.classList.add("playing");
+    $form.querySelectorAll("input,select,textarea").forEach($el => $el.setAttribute("disabled", "disabled"));
     fetch("say", {
         url: "say",
         method: "POST",
@@ -25,7 +41,10 @@ function onFormSubmit() {
         headers: {
             "content-type": "application/json",
         }
-    }).catch(err => console.error("POST failed"));
+    }).catch(err => console.error("POST failed")).finally(() => {
+        $form.classList.remove("playing")
+        $form.querySelectorAll("input,select,textarea").forEach($el => $el.removeAttribute("disabled"));
+    });
     return false;
 }
 
@@ -34,7 +53,7 @@ let playRecording = false;
 function onRecord() {
     navigator.mediaDevices.getUserMedia({audio: true})
     .then((stream) => {
-        $mic.className = "recording";
+        $form.classList.add("recording");
         mediaRecorder = new MediaRecorder(stream, {mimeType: "audio/ogg; codecs=opus"});
         mediaRecorder.start();
         console.log("recorder started: ", mediaRecorder.state);
@@ -48,15 +67,16 @@ function onRecord() {
 
         mediaRecorder.onstop = (e) => {
             console.log("recorder stopped");
-            $mic.className = "";
+            $form.classList.remove("recording");
             if (playRecording) {
                 const blob = new Blob(chunks, { type: "audio/ogg; codecs=opus" });
                 const body = new FormData($form);
                 body.append("file", blob, "recording.ogg");
+                $form.classList.add("playing");
                 fetch("play", {
                     method: "POST",
                     body,
-                });
+                }).finally(() => $form.classList.remove("playing"));
             }
             chunks = [];
             stream.getTracks().forEach(track => track.stop());
@@ -78,8 +98,9 @@ function onFileUpload() {
     const file = $uploadFile.files[0];
     const body = new FormData($form);
     body.append("file", file);
+    $form.classList.add("playing");
     fetch("play", {
         method: "POST",
         body
-    });
+    }).finally(() => $form.classList.remove("playing"));
 }
